@@ -81,7 +81,8 @@
     width: 33.3%;
     display: block;
     height: 100%;
-    float: left; /* Makes sure panels are side-by-side */
+    float: left;
+    margin-bottom: 0; /* Makes sure panels are side-by-side */
     /*overflow-x: hidden;
     overflow-y: auto;*/
 }
@@ -90,6 +91,7 @@
     display: block;
     height: 100%;
     float: left; 
+    margin-bottom: 0;
 }
 .hiddenDiv{
     position: fixed;
@@ -114,6 +116,7 @@
 }
 .olDiv{
     min-height: 20em;
+    max-height: 100%;
     min-width: 75%;
     max-width: 100%;
     border: dashed 2px black;
@@ -125,6 +128,7 @@
     align-items: center;
     counter-reset: nCounter 0;
     padding: 3%;
+    margin-top: 3%;
 }
 
 /* --- Competences ---*/
@@ -143,6 +147,13 @@ textarea#competence{
   z-index: 100;
   padding-top: 2%;
 }
+textarea#competence::placeholder{
+    color: lightgray
+}
+.compDiv li{
+   
+   padding-left: 17.5%;
+}
 
 /* --- Job --- */
 
@@ -154,6 +165,60 @@ textarea#job{
     padding-top: 4%;
 }
 
+/*--- Note ---*/
+.note {
+  padding: 10%;
+  width: 5em;
+  height: 5em;
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(0, 0, 0, 0.05)), color-stop(100%, rgba(0, 0, 0, 0.25))) #00CC00;
+  background: -moz-linear-gradient(top, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.25)) #00CC00;
+  background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.25)) #00CC00;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.25)) #00CC00;
+  background-color: #FFFD75;
+  box-shadow: 5px 5px 10px 5px rgba(33, 33, 33, 0.5);
+  transform: rotate(2deg);
+  transform: skew(-1deg, 1deg);
+  transition: transform .15s;
+
+}
+.note:hover {
+  cursor: move;
+  transform: scale(2);
+      z-index: 200;
+}
+.note textarea{
+ margin-top: 0.5em;
+  margin-left: -0.7em;
+}
+.note textarea::placeholder{
+    color: darkgray
+}
+.removeNote {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 16px;
+    font-style: 1.6em;
+    font-weight: bolder;
+    font-family: Helvetica, Arial, sans-serif;
+    color: gray;
+    transition: transform .150s, background .01s;
+}
+.removeNote:active {
+    text-shadow: 0px 1px 0px rgba(0,0,0,.3), 0px -1px 0px rgba(255,255,255,.3);
+    outline: none;
+}
+.removeNote:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+}
+.moveableArea{
+    display: inline-block;
+    position: absolute;
+    z-index: 1
+}
 /* --- everything else --- */
 ul li{
 margin-bottom: 24.5%;
@@ -194,24 +259,31 @@ textarea {
   resize: vertical;
   font-family: 'Gloria Hallelujah', cursive;
   width: 120%;
-  height: 90%;
+  height: 120%;
   font-size: 0.75em;
   line-height: 1.2;
   color: #000;
     resize: none;
     overflow: hidden;
     outline: none;
+    justify-content: center;
 }
 .removeButton {
    float: left;
-    width: 9%;
+    width: 8%;
     text-align: center;
     margin-top: 4%;
     margin-right: 2%;
-    margin-left: -4%;
+    
     font-size: 150%;
     font-weight: bolder;
     font-family: Helvetica, Arial, sans-serif;
     color: transparent;
     transition: transform .150s, background .01s;
 }
+
+.fixed-action-btn {
+     position: relative;
+     float: right;
+     height: inherit;
+} 

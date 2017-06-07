@@ -1,7 +1,8 @@
 import React from "react"
 import Board from "./Board.js"
+import { connect } from "react-redux";
 
-export default class Container extends React.Component {
+export class Container extends React.Component {
   handleChange(e) {
     const title = e.target.value;
     this.props.changeTitle(title);
@@ -16,9 +17,12 @@ var getDiv = document.getElementsByClassName("board");
     getDiv[0].style.transform = 'translateX(0%)';
 }
 
+
   render() {
+    console.log("from container");
+    console.log(this.props)
     return (
-      <div className="container">
+      <div className="container" >
 
             <div style={{"width":"3%", "height":"100%", "display":"inline", "float": "left"}}>
                 <button className="moveBack" style= {{"backgroundColor": "white"}} onClick={this.onPrev.bind(this)}><span></span></button> 
@@ -34,3 +38,11 @@ var getDiv = document.getElementsByClassName("board");
     );
   }
 }
+Container = connect( (store) => {
+  return{
+    jobs: store.jobReducer.jobs,
+    competences: store.competenceReducer.competences,
+    notes: store.noteReducer.notes
+  }
+})(Container);
+export default Container;

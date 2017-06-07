@@ -1,28 +1,41 @@
 import React from "react";
-
-import Footer from "./Footer";
-import Header from "./Header";
+import { connect } from "react-redux";
 import Container from "./Container";
+import { fetchJobs, fetchJobsFulfilled, fetchNotesFulfilled, loadData } from "../actions/index"
 
-export default class Layout extends React.Component {
-  constructor() {
-    super();
+export class Layout extends React.Component {
+  constructor(props) {
+    super(props);
     this.state = {
       title: "Welcome",
     };
   }
+  componentWillMount(){
 
-  changeTitle(title) {
-    this.setState({title});
+   this.props.dispatch(loadData()); 
+    // this.props.dispatch(fetchJobsFulfilled());
+    // this.props.dispatch(fetchNotesFulfilled());
   }
 
   render() {
+    console.log("from postIt")
+    console.log(this.props)
+    // const {someJobs, someCompetences} = this.props;
     return (
       <div>
-        <Header changeTitle={this.changeTitle.bind(this)} title={this.state.title} />
+        <br/>
         <Container />
-        <Footer />
       </div>
     );
   }
 }
+Layout = connect( (store) => {
+  return{
+    jobs: store.jobReducer.jobs,
+    competences: store.competenceReducer.competences,
+    jobReducer: store.jobReducer,
+    competenceReducer: store.competenceReducer,
+    notes: store.noteReducer.notes,
+  }
+})(Layout);
+export default Layout;
