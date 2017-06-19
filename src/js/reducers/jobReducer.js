@@ -24,7 +24,11 @@ export default function reducer(state={
         case "UPDATE_JOB":{
 
             var newList = state.jobs;
-            newList[action.payload.id].text = action.payload.text
+            var job = newList.find(element => element.id == action.payload.id)
+            job.text = action.payload.text
+
+            // var newList = state.jobs;
+            // newList[action.payload.id].text = action.payload.text
             // newList.splice(action.payload.id, 1, action.payload.text)
 
             // const {id, text} = action.payload
@@ -39,13 +43,15 @@ export default function reducer(state={
                 }
         }
         case "REMOVE_JOB":{
+            var newList = state.jobs;
+            var elementIndex = newList.findIndex(element => element.id == action.payload.id);
             return {
                 ...state, 
-          
-                //right way
-                jobs: state.jobs.slice(0, action.payload.id).concat(state.jobs.slice(action.payload.id + 1))
+                jobs: state.jobs.slice(0, elementIndex).concat(state.jobs.slice(elementIndex + 1))
+            
             }
         }
+
 
         case "LOAD_DATA":{
             return {

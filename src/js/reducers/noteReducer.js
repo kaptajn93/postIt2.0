@@ -22,8 +22,11 @@ export default function reducer(state={
                     notes: state.notes.concat(action.payload.note)}
         }
         case "UPDATE_NOTE":{
+            
             var newList = state.notes;
-            newList[action.payload.id].text = action.payload.text
+            var note = newList.find(element => element.id == action.payload.id)
+            note.text = action.payload.text
+
             return {
                 ...state, 
                     notes: newList
@@ -31,18 +34,20 @@ export default function reducer(state={
         }
         case "UPDATE_NOTE_POSITION":{
             var newList = state.notes;
-            newList[action.payload.id].position = action.payload.newPosition
+            var noteIndex = newList.findIndex(element => element.id == action.payload.id)
+            newList[noteIndex].position = action.payload.newPosition
             return {
                 ...state, 
                     notes: newList
                 }
         }
         case "REMOVE_NOTE":{
+             var newList = state.notes;
+            var elementIndex = newList.findIndex(element => element.id == action.payload.id);
             return {
                 ...state, 
-          
                 //right way
-                notes: state.notes.slice(0, action.payload.id).concat(state.notes.slice(action.payload.id + 1))
+                notes: state.notes.slice(0, elementIndex).concat(state.notes.slice(elementIndex + 1))
             }
         }
 

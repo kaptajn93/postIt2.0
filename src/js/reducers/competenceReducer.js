@@ -14,7 +14,8 @@ export default function reducer(state={
         }
         case "UPDATE_COMPETENCE":{
            var newList = state.competences;
-            newList[action.payload.id].text = action.payload.text
+            var comp = newList.find(element => element.id == action.payload.id)
+            comp.text = action.payload.text
             
             return {
                  ...state, 
@@ -35,9 +36,15 @@ export default function reducer(state={
                 }
         }
         case "REMOVE_COMPETENCE":{
+            var newList = state.competences;
+            console.log("start removing: " + newList.findIndex(element => element.id == action.payload.id))
+            var elementIndex = newList.findIndex(element => element.id == action.payload.id);
+            console.log(newList[0].text)
+            // newList.splice(elementIndex, 1);
             return {
                 ...state, 
-                competences: state.competences.slice(0, action.payload.id).concat(state.competences.slice(action.payload.id + 1))
+                // competences: newList
+                competences: state.competences.slice(0, elementIndex).concat(state.competences.slice(elementIndex + 1))
                 // competences: state.competences.filter(competences => competence.id !== action.payload)
             }
         }
@@ -48,8 +55,22 @@ export default function reducer(state={
                 competences: action.payload.competences
             }
         }
+        case "SWITCH":{
+            var newList = state.competences;
+            var lastElm = newList.reverse();
 
+            return{
+                ...state,
+                competences: state.competences.slice(0, 0).concat(newList)
+            }
+        }
 
+        case "SORT_COMPETENCES":{
+            return{
+                ...state,
+                competences: state.competences.splice(0, 0).concat(action.payload.notPriorityComps)
+            }
+        }
         case "SAVE":{
            console.log("fra comp reducer");
            console.log(state.competences);

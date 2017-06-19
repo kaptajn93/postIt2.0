@@ -3,19 +3,15 @@ import Board from "./Board.js"
 import { connect } from "react-redux";
 
 export class Container extends React.Component {
-  handleChange(e) {
-    const title = e.target.value;
-    this.props.changeTitle(title);
-  }
 
   scrollToPriority(){
     var getDiv = document.getElementsByClassName("board");
     getDiv[0].style.transform = 'translateX(-33.34%)';
-}
-onPrev(){
-var getDiv = document.getElementsByClassName("board");
+  }
+  onPrev(){
+    var getDiv = document.getElementsByClassName("board");
     getDiv[0].style.transform = 'translateX(0%)';
-}
+  }
 
 
   render() {

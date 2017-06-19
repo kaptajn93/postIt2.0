@@ -18,11 +18,13 @@ export function fetchJobsFulfilled(){
         }
     }
 }
-export function addJob(){
+export function addJob(jobs){
+    var newJob = new Job();
+    newJob.id = jobs ? jobs : 0;
     return{
         type: "ADD_JOB",
         payload:{
-            job: new Job()
+            job: newJob
         }
     }
 }
@@ -89,17 +91,20 @@ export function fetchNotes(){
     }
 }
 export function fetchNotesFulfilled(){
+    var defaultPosition = {x : 300 + Math.floor((Math.random() * 100) + 1), y : 190 + Math.floor((Math.random() * 120) + 1)};
+    var defaultNote = new Note();
     return{
         type: "FETCH_NOTES_FULFILLED",
         payload:{
-            notes: [new Note()]
+            notes: [defaultNote]
         }
     }
 }
-export function addNote(){
+export function addNote(notes){
     var defaultPosition = {x : 300 + Math.floor((Math.random() * 100) + 1), y : 190 + Math.floor((Math.random() * 120) + 1)};
     var defaultNote = new Note();
     defaultNote.position = defaultPosition;
+    defaultNote.id = notes ? notes : 0;
     return{
         type: "ADD_NOTE",
         payload:{
@@ -137,9 +142,26 @@ export function savePosition(id, newPosition){
 
 //everything else
 
+export function sortCompetences(notPriorityComps, priorityComps){
+    return{
+        type: "SORT_COMPETENCES",
+        payload:{
+            notPriorityComps,
+            priorityComps
+
+        }
+    }
+}
+
 export function save(){
     return{
         type: "SAVE"
+    }
+}
+
+export function makeSwitch(){
+    return{
+        type: "SWITCH"
     }
 }
 
@@ -154,6 +176,9 @@ export function loadData(){
     note2.position = {x: 700, y: 100}
     note3.text = "dig";
     note3.position = {x: 50, y: 270}
+    note1.id = 0;
+    note2.id = 1;
+    note3.id = 2;
     notes.push(note1);
     notes.push(note2);
     notes.push(note3);
@@ -180,6 +205,9 @@ export function loadData(){
     job1.text = "hej";
     job2.text = "med";
     job3.text = "dig";
+    job1.id = 0;
+    job2.id = 1;
+    job3.id = 2;
     jobs.push(job1);
     jobs.push(job2);
     jobs.push(job3);
